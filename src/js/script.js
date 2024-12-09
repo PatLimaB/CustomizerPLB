@@ -8,6 +8,9 @@ const tshirtImage = tshirtContainer.querySelector('img');
 const logos = document.querySelectorAll('.image-item img');
 const nameSpan = document.createElement('span');
 
+// Set default logo to druid.png
+const defaultLogoSrc = './src/img/druid.png';
+
 // Create the container for the title and the small image
 const textContainer = document.createElement("div");
 textContainer.style.position = "absolute"; 
@@ -43,13 +46,52 @@ function calculateInitialPosition() {
     return { initialTop, initialLeft };
 }
 
-// Wait until the window is fully loaded before setting the initial position. I had issues with the title's position, and this is the solution I found
+// Wait until the window is fully loaded before setting the initial position.
 window.addEventListener("load", () => {
     let { initialTop, initialLeft } = calculateInitialPosition();
     textContainer.style.top = `${initialTop}px`;
     textContainer.style.left = `${initialLeft}px`;
 
     // Adjust the position of the small image
+    smallImage.style.top = `${dynamicTitle.offsetTop + dynamicTitle.offsetHeight * 0.3}px`; 
+    smallImage.style.left = `${dynamicTitle.offsetWidth + 10}px`; 
+
+    // Set default logo
+    const logoSrc = defaultLogoSrc;
+    const newLogo = document.createElement("img");
+    newLogo.src = logoSrc;
+    newLogo.classList.add("logo");
+    newLogo.style.position = "absolute";
+    newLogo.style.width = "140px";
+
+    // Center the logo
+    function centerLogo() {
+        const containerRect = tshirtContainer.getBoundingClientRect();
+        newLogo.style.top = `${(containerRect.height - 140) / 2}px`;
+        newLogo.style.left = `${(containerRect.width - 140) / 2}px`;
+    }
+
+    centerLogo();
+    window.addEventListener("resize", centerLogo);
+
+    tshirtContainer.appendChild(newLogo);
+
+    // Set the logo name (without the .png)
+    const logoName = logoSrc.split("/").pop().replace(".png", "").replace("%20", " ").toUpperCase();
+
+    // Create a new span with the image's name
+    nameSpan.id = "nameSpan";
+    nameSpan.textContent = logoName || "Logo";
+    nameSpan.style.position = "absolute";
+    nameSpan.style.bottom = "10%";
+    nameSpan.style.fontWeight = "bold";
+    nameSpan.style.textAlign = "center";
+    nameSpan.style.width = "100%"; 
+
+    tshirtContainer.appendChild(nameSpan);
+
+    // Update the small image to the right of the title after the logo is added
+    smallImage.src = logoSrc;
     smallImage.style.top = `${dynamicTitle.offsetTop + dynamicTitle.offsetHeight * 0.3}px`; 
     smallImage.style.left = `${dynamicTitle.offsetWidth + 10}px`; 
 });
@@ -129,17 +171,14 @@ tshirtContainer.addEventListener("drop", (e) => {
     newLogo.style.position = "absolute";
     newLogo.style.width = "140px";
 
-    // Function to center the logo. I had issues with the logo's position, and this is the solution I found
+    // Function to center the logo
     function centerLogo() {
         const containerRect = tshirtContainer.getBoundingClientRect();
         newLogo.style.top = `${(containerRect.height - 140) / 2}px`;
         newLogo.style.left = `${(containerRect.width - 140) / 2}px`;
     }
 
-    // Center the logo when the page loads
     centerLogo();
-
-    // Recalculate the logo position when the window size changes
     window.addEventListener("resize", centerLogo);
 
     tshirtContainer.appendChild(newLogo);
@@ -149,7 +188,7 @@ tshirtContainer.addEventListener("drop", (e) => {
 
     // Create a new span with the image's name
     nameSpan.id = "nameSpan";
-    nameSpan.textContent = logoName || "Logo";
+    nameSpan.textContent = logoName;
     nameSpan.style.position = "absolute";
     nameSpan.style.bottom = "10%";
     nameSpan.style.fontWeight = "bold";

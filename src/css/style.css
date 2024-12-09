@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@700&family=Raleway:wght@400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+}
+
+:root {
+    --primary-color: #0b3232;
+    --secondary-color: #5CAAB4;
+    --accent-color: #28d9f0;
+    --base-color: #F2EBDD;
+    --black-color: rgb(6, 6, 6);
+    --white-color: rgb(243, 241, 241);
+    --margin-botom: 12px;
+}
+
+#customizer-container {
+    height: 75%;
+    width: 60%;
+    background-color: var(--secondary-color);
+    border-radius: 5px;
+    box-shadow: 8px 7px 10px 0px rgba(11, 50, 50, 1);
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#options {
+    height: 100%;
+    width: 25%;
+    border: 3px dotted var(--primary-color);
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#images-container {
+    flex-grow: 1;
+    overflow-y: scroll;
+    border: 2px solid var(--primary-color);
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.image-item img {
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.image-item img:hover {
+    transform: scale(1.1);
+}
+
+#tshirt-container {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#tshirt-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+#tshirt-container span {
+    position: absolute;
+    font-weight: bold;
+    color: white;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--base-color);
+}
+
+footer {
+    background: var(--secondary-color);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 5px 0;
+    color: var(--black-color);
+}
+
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+label {
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="range"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+footer h5 {
+    color: var(--white-color);
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    body {
+        height: unset;
+    }
+
+    #customizer-container {
+        flex-direction: column;
+        height: auto;
+        width: 90%;
+        padding: 10px;
+    }
+
+    #options {
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+        padding: 10px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    #options div {
+        flex: 1 1 calc(50% - 10px);
+        margin-bottom: 10px;
+    }
+
+    #images-container {
+        grid-template-columns: repeat(3, 1fr);
+        width: 50%;
+        margin: 0 auto;
+        height: 50vh;
+        overflow-y: auto;
+        border: 2px solid var(--primary-color);
+        padding: 10px;
+    }
+
+    #tshirt-container {
+        width: 100%;
+    }
+
+    #tshirt-container img {
+        max-width: 80%;
+    }
+
+    #ranges {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        margin: 0;
+    }
+
+    #title {
+        width: 75%;
+    }
+}
